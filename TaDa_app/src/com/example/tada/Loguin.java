@@ -164,7 +164,7 @@ public class Loguin extends ActionBarActivity implements OnClickListener {
 			user=params[0];
 			pass=params[1];
 			
-    		if (loginstatus(user,pass)==true){  
+    		if (loginstatus(user,pass)==true){
     			return "ok"; 
     		}else{    		
     			return "err";  

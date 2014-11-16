@@ -7,7 +7,7 @@
     <string name="title_activity_loguin">Loguin</string>
     <string name="title_activity_principal">Principal</string>
     <string name="bienvenido">..Bienvenido..</string>
-   	<string name="datos">Ingrese sus Datos</string>
+    <string name="datos">Ingrese sus Datos</string>
     <string name="usuario">Usuario:</string>
     <string name="ing_usuario">Ingrese su Usuario</string>
     <string name="contrasena">Contraseña:</string>
@@ -15,5 +15,6 @@
     <string name="ingresar">Ingresar</string>
     <string name="registro">Registrarse</string>
     <string name="guardar">Guardar</string>
-    
+    <string name="title_activity_registro">Registro</string>
+
 </resources>

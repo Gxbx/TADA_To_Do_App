@@ -49,9 +49,8 @@
 			        android:id="@+id/et_enviar"
 			        android:gravity="center"
 			        android:layout_width="match_parent"
-			        android:layout_height="100dp"
+			        android:layout_height="wrap_content"
 			        android:hint="Introduzca su nota de texto aqui"/>
-			    
 			     <Button
 			        android:id="@+id/bGuardar"
 			        android:layout_width="wrap_content"

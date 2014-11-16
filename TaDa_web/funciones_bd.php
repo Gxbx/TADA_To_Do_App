@@ -38,6 +38,21 @@ class funciones_BD {
         }
 
     }
+	
+	public function crea_nota($hora,$fecha,$latitud,$longitud,$nota,$categoria) {
+
+    $result = mysql_query("INSERT INTO notatexto(hora,fecha,latitud,longitud,nota,categoria) VALUES('$hora', '$fecha', '$latitud', '$longitud', '$nota', '$categoria')");
+        // check for successful store
+        if ($result) {
+
+            return true;
+
+        } else {
+
+            return false;
+        }
+
+    }
  
  
      /**
