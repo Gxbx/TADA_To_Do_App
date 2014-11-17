@@ -16,5 +16,7 @@
     <string name="registro">Registrarse</string>
     <string name="guardar">Guardar</string>
     <string name="title_activity_registro">Registro</string>
+    <string name="title_activity_historial">Historial</string>
+    <string name="title_activity_historial_texto">HistorialTexto</string>
 
 </resources>

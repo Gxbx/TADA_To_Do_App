@@ -36,22 +36,17 @@
 		</LinearLayout>
    		</TableRow>
        <TableRow 
-        	android:layout_weight="0.1">
-			   <Button
-			       android:layout_height="match_parent"
-			       android:layout_weight="1"
-			       android:text="Notas de Voz"
-			       android:id="@+id/bhist_voz"
-			       android:background="#123456"
+            android:gravity="center|right"
+        	android:layout_weight="0.1"
+        	android:background="@color/azul_boton_oscuro">
+			   <Button 
+			       android:layout_alignParentRight="true"
+			       android:layout_height="wrap_content"
+			       android:layout_width="wrap_content"
+			       android:text="Ver Historial"
+			       android:id="@+id/bhistorial"
+			       android:background="@color/azul_boton_oscuro"
 			       android:textColor="@color/blanco"/>
-   			   <Button 
-			       android:layout_height="match_parent"
-			       android:layout_weight="1"
-			       android:text="Notas de Texto"
-			       android:id="@+id/bhist_notas"
-			       android:background="@color/blanco"
-			       android:textColor="@color/negro"/>
-			   
         </TableRow>
 	    <TableRow
 	        android:gravity="center"

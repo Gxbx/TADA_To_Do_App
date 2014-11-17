@@ -11,7 +11,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCSS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
@@ -35,6 +36,14 @@
         <activity
             android:name=".Registro"
             android:label="@string/title_activity_registro" >
+        </activity>
+        <activity
+            android:name=".HistorialVoz"
+            android:label="@string/title_activity_historial" >
+        </activity>
+        <activity
+            android:name=".HistorialTexto"
+            android:label="@string/title_activity_historial_texto" >
         </activity>
     </application>
 

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -16,6 +15,7 @@ import com.example.http.Httppostaux;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -36,13 +36,13 @@ import android.widget.Toast;
 
 public class Principal extends ActionBarActivity implements OnClickListener{
 
-	Button btn_record, btn_stop, btn_play, btn_guardar;
+	Button btn_record, btn_stop, btn_play, btn_guardar, btn_hist_texto, btn_hist_voz;
 	EditText nota_texto;
 	TextView informacion;
 	private static final String LOG_TAG = "Grabadora";          
 	private MediaRecorder mediaRecorder;
 	private MediaPlayer mediaPlayer;
-	private static String fichero = Environment.getExternalStorageDirectory().getAbsolutePath()+"/audio.3gp";
+	String ruta;
 	LocationManager loc_man;
 	String torres;
 	Double latitud, longitud;
@@ -52,7 +52,8 @@ public class Principal extends ActionBarActivity implements OnClickListener{
     boolean result_back;
     private ProgressDialog pDialog;
     String text2send;
-    String lat_str, lon_str;
+    String lat_str, lon_str, nombre_voz;
+    int i=0;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,24 +66,35 @@ public class Principal extends ActionBarActivity implements OnClickListener{
         btn_stop = (Button) findViewById(R.id.bDetener);
         btn_play = (Button) findViewById(R.id.bReproducir);
         btn_guardar = (Button) findViewById(R.id.bGuardar);
+        btn_hist_texto = (Button) findViewById(R.id.bhist_notas);
+        btn_hist_voz = (Button) findViewById(R.id.bhist_voz);
         nota_texto = (EditText) findViewById(R.id.et_enviar);
         
         btn_record.setOnClickListener(this);
         btn_stop.setOnClickListener(this);
         btn_play.setOnClickListener(this);
         btn_guardar.setOnClickListener(this);
+        btn_hist_texto.setOnClickListener(this);
+        btn_hist_voz.setOnClickListener(this);
         
         btn_stop.setEnabled(false);
         btn_play.setEnabled(false);
     }
+	
+	public void contadorVoz(){               ///// FALTA ARREGLAR EL CONTADOR PARA QUE NO REMPLACE LAS VIEJAS
+		i=i+1;
+		nombre_voz="NotaDeAudio"+i;
+	}
 	@SuppressLint("SimpleDateFormat")
 	@Override
 	public void onClick(View v) {
 //---------------------------------------------------NOTAS DE VOZ--------------------------------------------------
 		switch (v.getId()) {
 		case R.id.bGrabar:
+			contadorVoz();
+			ruta = Environment.getExternalStorageDirectory().getPath()+"/TaDa/"+nombre_voz+".3gp";
 			mediaRecorder = new MediaRecorder();
-		    mediaRecorder.setOutputFile(fichero);
+		    mediaRecorder.setOutputFile(ruta);
 		    mediaRecorder.setAudioChannels(1);
 		    mediaRecorder.setAudioSamplingRate(200);
 		    mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -113,7 +125,7 @@ public class Principal extends ActionBarActivity implements OnClickListener{
 				    btn_record.setEnabled(true);
 				    btn_stop.setEnabled(false);
 				    btn_play.setEnabled(true);
-		         mediaPlayer.setDataSource(fichero);
+		         mediaPlayer.setDataSource(ruta);
 		         mediaPlayer.prepare();
 		         mediaPlayer.start();
 		         informacion.setText("Reporduciendo");
@@ -126,7 +138,7 @@ public class Principal extends ActionBarActivity implements OnClickListener{
 //--------------------------------CAPTURA DE CATEGORIA-----------------------------------------------------------
 			String cate2send = "hola";
 //--------------------------------CAPTURA DE TEXTO---------------------------------------------------------------
-			if 	(nota_texto.equals("")){
+			if(nota_texto.equals("Introduzca su nota de texto aqui")){
 				Toast text = Toast.makeText(this, "Debe Escribir Algo", Toast.LENGTH_SHORT);
 				text.show();
 		    }else{
@@ -156,14 +168,21 @@ public class Principal extends ActionBarActivity implements OnClickListener{
         	}else{
         		informacion.setText("no llego nada");
         	}
-//        	informacion.setText(formatteHour+"/"+formatteDate+"/"+lat_str+"/"+lon_str+"/"+text2send+"/"+cate2send);
         	new asynclogin().execute(formatteHour,formatteDate,lat_str,lon_str,text2send,cate2send);
 			break;
-		   }
+		case R.id.bhist_notas:
+			Intent ir_historial = new Intent(this, HistorialTexto.class);
+			startActivity(ir_historial);
+			break;
+		case R.id.bhist_voz:
+		Intent ir_historial_voz = new Intent(this, HistorialVoz.class);
+		startActivity(ir_historial_voz);
+		break;
+	   }
 	}
 //---------------------------------BOTON ENVIAR POR METODO POST--------------------------------------------------
-	public void err_login(){
-	    Toast toast1 = Toast.makeText(getApplicationContext(),"Usuario o Contraseña incorrectos", Toast.LENGTH_SHORT);
+	public void err_nota(){
+	    Toast toast1 = Toast.makeText(getApplicationContext(),"No se Pudo Guardar su Nota ", Toast.LENGTH_SHORT);
  	    toast1.show();    	
     }
     public void err_login_vacios(){
@@ -192,7 +211,7 @@ public class Principal extends ActionBarActivity implements OnClickListener{
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}		            
-		    		 if (reg_status==0){ 
+		    		 if (reg_status==1){ 
 		    			 Log.e("loginstatus ", "invalido");
 		    			 return false;
 		    		 }
@@ -222,7 +241,6 @@ public class Principal extends ActionBarActivity implements OnClickListener{
 			nota=params[4];
 			categoria=params[5];
 			
-			
     		if (loginstatus(hora,fecha,latitud,longitud,nota,categoria)==true){
     			return "ok"; 
     		}else{    		
@@ -233,9 +251,9 @@ public class Principal extends ActionBarActivity implements OnClickListener{
            pDialog.dismiss();
            Log.e("onPostExecute=",""+result);
            if (result.equals("ok")){
-				nota_exitosa();
+        	   nota_exitosa();
             }else{
-            	err_login();
+            	err_nota();
             }
         }
     }

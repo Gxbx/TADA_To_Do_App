@@ -1,16 +1,19 @@
 package com.example.tada;
 
+import java.io.File;
 import java.util.ArrayList;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.example.http.Httppostaux;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +22,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.http.Httppostaux;
+
 public class Loguin extends ActionBarActivity implements OnClickListener {
 	
 	Button btn_ingresar, btn_registro;
@@ -26,7 +31,6 @@ public class Loguin extends ActionBarActivity implements OnClickListener {
 	Httppostaux post;
     String IP_Server = "192.168.0.20";
     String URL_connect = "http://"+IP_Server+"/TaDa/acces.php";
-    String URL_connect_reg = "http://"+IP_Server+"/TaDa/adduser.php";
     boolean result_back;
     private ProgressDialog pDialog;
 
@@ -42,6 +46,21 @@ public class Loguin extends ActionBarActivity implements OnClickListener {
 		
 		btn_ingresar.setOnClickListener(this);
 		btn_registro.setOnClickListener(this);
+		crear_folder();
+	}
+
+	private void crear_folder() {
+		File folder = new File(Environment.getExternalStorageDirectory() + "/TaDa");
+	    boolean success = true;
+	    if (!folder.exists()) {
+	        Toast.makeText(this, "carpeta creada", Toast.LENGTH_SHORT).show();
+	        success = folder.mkdir();
+	    }
+	    if (success) {
+	        Toast.makeText(this, "La carpeta ya esxiste", Toast.LENGTH_SHORT).show();
+	    } else {
+	        Toast.makeText(this, "fallo al crear carpeta", Toast.LENGTH_SHORT).show();
+	    }
 	}
 
 	@Override
@@ -59,51 +78,12 @@ public class Loguin extends ActionBarActivity implements OnClickListener {
 			break;
 			
 		case R.id.bregistro:
-			Intent i = new Intent(Loguin.this, Principal.class);
+			Intent i = new Intent(Loguin.this, Registro.class);
 			startActivity(i);
-//			verificar();
 			break;
-
 		}
 	}
-//	private void verificar() {
-//		int logstatus_reg=3;
-//				String usuario_reg=et_usuario.getText().toString();
-//				String passw_reg=et_contrasena.getText().toString();
-//			ArrayList<NameValuePair> postparameters2send= new ArrayList<NameValuePair>();
-//			postparameters2send.add(new BasicNameValuePair("usuario",usuario_reg));
-//			postparameters2send.add(new BasicNameValuePair("password",passw_reg));
-//			
-//			JSONArray jdata = post.getserverdata(postparameters2send, URL_connect_reg);
-//			
-//			if (jdata!=null && jdata.length() > 0){
-//	    		JSONObject json_data; 
-//				try {
-//					 json_data = jdata.getJSONObject(0); 
-//					 logstatus_reg=json_data.getInt("logstatus");
-//					 Log.e("muestra","logstatus= "+logstatus_reg);
-//				} catch (JSONException e) {
-//					e.printStackTrace();
-//				}		
-//				
-//			switch (logstatus_reg) {
-//				case 0:
-//					Toast exito_reg = Toast.makeText(this, "Registro Exitoso", Toast.LENGTH_SHORT);
-//					exito_reg.show();
-//					break;
-//				case 1:
-//					Toast no_reg = Toast.makeText(this, "No se Pudo Registrar el Usuario", Toast.LENGTH_SHORT);
-//					no_reg.show();
-//					break;
-//				case 2:
-//					Toast ext_reg = Toast.makeText(this, "El Usuario ya Existe", Toast.LENGTH_SHORT);
-//					ext_reg.show();
-//					break;
-//				}
-//			}
-//	}
-
-	//------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 	public void err_login(){
 	    Toast toast1 = Toast.makeText(getApplicationContext(),"Usuario o Contraseña incorrectos", Toast.LENGTH_SHORT);
  	    toast1.show();    	
