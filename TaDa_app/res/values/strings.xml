@@ -19,4 +19,27 @@
     <string name="title_activity_historial">Historial</string>
     <string name="title_activity_historial_texto">HistorialTexto</string>
 
+    <string-array name="llenar">
+        <item>uno</item>
+        <item>dos</item>
+        <item>tres</item>
+        <item>uno</item>
+        <item>dos</item>
+        <item>tres</item>
+        <item>uno</item>
+        <item>dos</item>
+        <item>tres</item>
+        <item>uno</item>
+        <item>dos</item>
+        <item>tres</item>
+        <item>uno</item>
+        <item>dos</item>
+        <item>tres</item>
+        <item>uno</item>
+        <item>dos</item>
+        <item>tres</item>
+    </string-array>
+
+    <string name="title_activity_main">MainActivity</string>
+
 </resources>

@@ -1,4 +1,4 @@
-<?php
+	<?php
  
 class funciones_BD {
  
@@ -17,7 +17,6 @@ class funciones_BD {
  
     // destructor
     function __destruct() {
- 
     }
  
     /**
@@ -58,6 +57,16 @@ class funciones_BD {
      /**
      * Verificar si el usuario ya existe por el username
      */
+	 public function extrae() {
+
+       $result = mysql_query("SELECT * FROM notatexto");
+        $num_rows = mysql_num_rows($result); 
+        if ($num_rows > 0){
+            return true;
+        }else{
+           return false;
+        } 
+    }
 
     public function isuserexist($username) {
 

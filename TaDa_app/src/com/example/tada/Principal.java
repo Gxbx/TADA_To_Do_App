@@ -11,7 +11,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.example.http.Httppostaux;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -33,13 +32,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.http.Httppostaux;
+
 
 public class Principal extends ActionBarActivity implements OnClickListener{
 
-	Button btn_record, btn_stop, btn_play, btn_guardar, btn_hist_texto, btn_hist_voz;
+	Button btn_record, btn_stop, btn_play, btn_guarda, btn_hist_texto, btn_hist_voz;
 	EditText nota_texto;
 	TextView informacion;
-	private static final String LOG_TAG = "Grabadora";          
+	private static final String LOG_TAG = "Grabadora";       
 	private MediaRecorder mediaRecorder;
 	private MediaPlayer mediaPlayer;
 	String ruta;
@@ -47,7 +48,7 @@ public class Principal extends ActionBarActivity implements OnClickListener{
 	String torres;
 	Double latitud, longitud;
 	Httppostaux post;
-    String IP_Server = "192.168.0.20";
+    String IP_Server = "192.168.1.101";
     String URL_connect = "http://"+IP_Server+"/TaDa/crear_nota.php";
     boolean result_back;
     private ProgressDialog pDialog;
@@ -60,12 +61,11 @@ public class Principal extends ActionBarActivity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.principal);
         post = new Httppostaux();
-        
         informacion = (TextView) findViewById(R.id.info);
         btn_record = (Button) findViewById(R.id.bGrabar);
         btn_stop = (Button) findViewById(R.id.bDetener);
         btn_play = (Button) findViewById(R.id.bReproducir);
-        btn_guardar = (Button) findViewById(R.id.bGuardar);
+        btn_guarda = (Button) findViewById(R.id.bGuarda);
         btn_hist_texto = (Button) findViewById(R.id.bhist_notas);
         btn_hist_voz = (Button) findViewById(R.id.bhist_voz);
         nota_texto = (EditText) findViewById(R.id.et_enviar);
@@ -73,26 +73,29 @@ public class Principal extends ActionBarActivity implements OnClickListener{
         btn_record.setOnClickListener(this);
         btn_stop.setOnClickListener(this);
         btn_play.setOnClickListener(this);
-        btn_guardar.setOnClickListener(this);
+        btn_guarda.setOnClickListener(this);
         btn_hist_texto.setOnClickListener(this);
         btn_hist_voz.setOnClickListener(this);
         
         btn_stop.setEnabled(false);
         btn_play.setEnabled(false);
     }
-	
-	public void contadorVoz(){               ///// FALTA ARREGLAR EL CONTADOR PARA QUE NO REMPLACE LAS VIEJAS
-		i=i+1;
-		nombre_voz="NotaDeAudio"+i;
-	}
 	@SuppressLint("SimpleDateFormat")
 	@Override
 	public void onClick(View v) {
 //---------------------------------------------------NOTAS DE VOZ--------------------------------------------------
 		switch (v.getId()) {
 		case R.id.bGrabar:
-			contadorVoz();
-			ruta = Environment.getExternalStorageDirectory().getPath()+"/TaDa/"+nombre_voz+".3gp";
+        	Date dt1 = new Date();
+        	SimpleDateFormat dh1 = new SimpleDateFormat("HH:mm:ss");
+        	String nombre_voz = dh1.format(dt1.getTime());
+        	
+	        Calendar calendario1 = new GregorianCalendar();
+	        Date date1 = calendario1.getTime();
+	        SimpleDateFormat df1 = new SimpleDateFormat("dd-MMM-yyyy");
+	        String nombre_voz2 = df1.format(date1);
+        	
+			ruta = Environment.getExternalStorageDirectory().getPath()+"/TaDa/Audio-"+nombre_voz+"-"+nombre_voz2+".3gp";
 			mediaRecorder = new MediaRecorder();
 		    mediaRecorder.setOutputFile(ruta);
 		    mediaRecorder.setAudioChannels(1);
@@ -115,7 +118,7 @@ public class Principal extends ActionBarActivity implements OnClickListener{
 		     mediaRecorder.stop();
 		     mediaRecorder.release();
 		     informacion.setText("detenido");
-			    btn_record.setEnabled(false);
+			    btn_record.setEnabled(true);
 			    btn_stop.setEnabled(false);
 			    btn_play.setEnabled(true);
 			break;
@@ -134,7 +137,7 @@ public class Principal extends ActionBarActivity implements OnClickListener{
 		     }
 		     break;
 //---------------------------------------------------NOTAS DE TEXTO--------------------------------------------------		     
-		case R.id.bGuardar:
+		case R.id.bGuarda:
 //--------------------------------CAPTURA DE CATEGORIA-----------------------------------------------------------
 			String cate2send = "hola";
 //--------------------------------CAPTURA DE TEXTO---------------------------------------------------------------
@@ -168,6 +171,7 @@ public class Principal extends ActionBarActivity implements OnClickListener{
         	}else{
         		informacion.setText("no llego nada");
         	}
+        	
         	new asynclogin().execute(formatteHour,formatteDate,lat_str,lon_str,text2send,cate2send);
 			break;
 		case R.id.bhist_notas:

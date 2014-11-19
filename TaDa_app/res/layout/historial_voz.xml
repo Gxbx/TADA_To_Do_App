@@ -1,75 +1,42 @@
-<TableLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-    	xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.tada.HistorialTexto" >
+<RelativeLayout 
+        android:background="#123456"
+        android:layout_height="100dp"
+        android:layout_width="match_parent">
+  	<TextView
+  	   android:textColor="@color/blanco"
+  	   android:layout_marginTop="10dp"
+  	   android:layout_marginBottom="10dp"
+       android:id="@+id/txt_hora"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Nota de Voz:" />
+	   	   <TextView
+	   	   android:layout_marginTop="10dp"
+	   	   android:layout_marginBottom="10dp"
+	       android:id="@+id/txt_voz_m"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:layout_below="@+id/txt_hora"
+	       android:text="voz a modificar"
+	       android:textColor="@color/blanco" />
+   <Button
+       android:id="@+id/btnreproducir"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentRight="true"
+       android:layout_alignParentTop="true"
+       android:text="Reproducir" />
+</RelativeLayout>
+
+    <ListView 
         android:layout_height="match_parent"
-        >
-
-        <TableRow 
-            android:gravity="center"
-        	android:layout_weight="1"
-        	android:background="#123456">
-        <LinearLayout 
-	   	   android:layout_width="match_parent"
-	       android:layout_height="match_parent"
-	       android:orientation="vertical"
-           android:gravity="center">
-			   <TextView 
-			   	   android:id="@+id/info"
-			   	   android:layout_width="wrap_content"
-			       android:layout_height="wrap_content"/>
-			   <Button
-			       android:id="@+id/bGrabar"
-			       android:layout_width="wrap_content"
-			       android:layout_height="wrap_content"
-			       android:text="Grabar"/>
-			   <Button
-			       android:id="@+id/bDetener"
-			       android:layout_width="wrap_content"
-			       android:layout_height="wrap_content"
-			       android:text="Detener Grabacion"/>
-			   <Button
-			       android:id="@+id/bReproducir"
-			       android:layout_width="wrap_content"
-			       android:layout_height="wrap_content"
-			       android:text="Reproducir"/>
-		</LinearLayout>
-   		</TableRow>
-       <TableRow 
-            android:gravity="center|right"
-        	android:layout_weight="0.1"
-        	android:background="@color/azul_boton_oscuro">
-			   <Button 
-			       android:layout_alignParentRight="true"
-			       android:layout_height="wrap_content"
-			       android:layout_width="wrap_content"
-			       android:text="Ver Historial"
-			       android:id="@+id/bhistorial"
-			       android:background="@color/azul_boton_oscuro"
-			       android:textColor="@color/blanco"/>
-        </TableRow>
-	    <TableRow
-	        android:gravity="center"
-	        android:layout_weight="1"
-	        android:background="#ffffff">
-        <LinearLayout 
-	   	   android:layout_width="match_parent"
-	       android:layout_height="match_parent"
-	       android:orientation="vertical"
-	       android:gravity="center">
-			    <EditText 
-			        android:id="@+id/et_enviar"
-			        android:gravity="center"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:hint="Introduzca su nota de texto aqui"/>
-			     <Button
-			        android:id="@+id/bGuardar"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="GUARDAR"/>
-		</LinearLayout>
- 		</TableRow>
-</TableLayout>
-    
-
+        android:layout_width="wrap_content"
+        android:id="@+id/lista_nota_texto1"
+        android:entries="@array/llenar"/>
+</LinearLayout>

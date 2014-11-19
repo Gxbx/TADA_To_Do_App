@@ -69,7 +69,7 @@
 			        android:layout_height="wrap_content"
 			        android:hint="Introduzca su nota de texto aqui"/>
 			     <Button
-			        android:id="@+id/bGuardar"
+			        android:id="@+id/bGuarda"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:text="GUARDAR"/>

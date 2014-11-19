@@ -45,6 +45,10 @@
             android:name=".HistorialTexto"
             android:label="@string/title_activity_historial_texto" >
         </activity>
+        <activity
+            android:name=".Mapas"
+            android:label="@string/title_activity_main" >
+        </activity>
     </application>
 
 </manifest>

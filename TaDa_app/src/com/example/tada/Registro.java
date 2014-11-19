@@ -23,7 +23,7 @@ public class Registro extends ActionBarActivity implements OnClickListener{
 
 	Httppostaux post;
 	Button btn_guardar_reg;
-	String IP_Server = "192.168.0.20";
+	String IP_Server = "192.168.1.101";
     String URL_connect_reg = "http://"+IP_Server+"/TaDa/adduser.php";
     private ProgressDialog pDialog;
 	EditText et_usuario, et_contrasena;

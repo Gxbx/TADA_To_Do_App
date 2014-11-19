@@ -29,7 +29,7 @@ public class Loguin extends ActionBarActivity implements OnClickListener {
 	Button btn_ingresar, btn_registro;
 	EditText et_usuario, et_contrasena;
 	Httppostaux post;
-    String IP_Server = "192.168.0.20";
+    String IP_Server = "192.168.1.101";
     String URL_connect = "http://"+IP_Server+"/TaDa/acces.php";
     boolean result_back;
     private ProgressDialog pDialog;
@@ -53,11 +53,11 @@ public class Loguin extends ActionBarActivity implements OnClickListener {
 		File folder = new File(Environment.getExternalStorageDirectory() + "/TaDa");
 	    boolean success = true;
 	    if (!folder.exists()) {
-	        Toast.makeText(this, "carpeta creada", Toast.LENGTH_SHORT).show();
+//	        Toast.makeText(this, "carpeta creada", Toast.LENGTH_SHORT).show();
 	        success = folder.mkdir();
 	    }
 	    if (success) {
-	        Toast.makeText(this, "La carpeta ya esxiste", Toast.LENGTH_SHORT).show();
+//	        Toast.makeText(this, "La carpeta ya esxiste", Toast.LENGTH_SHORT).show();
 	    } else {
 	        Toast.makeText(this, "fallo al crear carpeta", Toast.LENGTH_SHORT).show();
 	    }
@@ -129,8 +129,7 @@ public class Loguin extends ActionBarActivity implements OnClickListener {
     }else{
     	return true;
     }
-}           
-      
+}             
     class asynclogin extends AsyncTask< String, String, String > {
     	String user,pass;
         protected void onPreExecute() {
